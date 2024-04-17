@@ -1,0 +1,1 @@
+cursor.execute("insert into products values('RP0006', 'Kiwis', 300, 500)")
