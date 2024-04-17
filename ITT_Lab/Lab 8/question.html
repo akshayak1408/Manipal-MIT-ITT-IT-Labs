@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Inventory Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        #inventory-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        #inventory-table th, #inventory-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        #inventory-table th {
+            background-color: #f2f2f2;
+        }
+        #add-form {
+            margin-bottom: 20px;
+        }
+        #add-form input[type="text"], #add-form input[type="number"] {
+            width: 200px;
+            padding: 5px;
+            margin-right: 10px;
+        }
+        #add-form button {
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<h1>Medical Inventory Management System</h1>
+<form id="add-form">
+    <input type="text" id="medicine-name" placeholder="Medicine Name">
+    <input type="number" id="quantity" placeholder="Quantity">
+    <button type="button" onclick="addMedicine()">Add Medicine</button>
+</form>
+
+<table id="inventory-table">
+    <thead>
+        <tr>
+            <th>Medicine Name</th>
+            <th>Quantity</th>
+        </tr>
+    </thead>
+    <tbody id="inventory-body">
+    </tbody>
+</table>
+<script>
+    var inventory = [
+        { "name": "Paracetamol", "quantity": 100 },
+        { "name": "Aspirin", "quantity": 50 },
+        { "name": "Ibuprofen", "quantity": 75 }
+    ];
+    function populateInventory() {
+    var inventoryBody = document.getElementById("inventory-body");
+    inventoryBody.innerHTML = ""; 
+    for (var i = 0; i < inventory.length; i++) {
+        var item = inventory[i];
+        inventoryBody.innerHTML += `
+            <tr>
+                <td>${item.name}</td>
+                <td>${item.quantity}</td>
+            </tr>
+        `;
+    }
+}
+    function addMedicine() {
+        var name = document.getElementById("medicine-name").value;
+        var quantity = parseInt(document.getElementById("quantity").value);
+        if (name && quantity > 0) {
+            inventory.push({ "name": name, "quantity": quantity });
+            populateInventory();
+            document.getElementById("medicine-name").value = "";
+            document.getElementById("quantity").value = "";
+        } else {
+            alert("Please enter valid medicine name and quantity.");
+        }
+    }
+    window.onload = function() {
+        populateInventory();
+    };
+</script>
+
+</body>
+</html>
